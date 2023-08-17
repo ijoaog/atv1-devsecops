@@ -1,1 +1,1 @@
-Atividade da matétia DevSecOps
+Atividade da matéria DevSecOps
