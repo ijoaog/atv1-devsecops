@@ -1,0 +1,195 @@
+PS C:\Users\joão.klein\Documents\ESTUDOS\DevSecOps\test-conteiner> docker run -d --restart=always -v .\repos:/var/www/git -p 8080:80 hrchlhck/git-server
+Unable to find image 'hrchlhck/git-server:latest' locally
+latest: Pulling from hrchlhck/git-server
+064a9bb4736d: Pull complete
+09ca53dff75c: Pull complete
+1ed208eecc54: Pull complete
+0340518f8d9f: Pull complete
+d6090aff6093: Pull complete
+Digest: sha256:ad2c92917afc8487a02a6f8a0b5427171e73648d2ac6deb9cd33eb981851d29d
+Status: Downloaded newer image for hrchlhck/git-server:latest
+WARNING: The requested image's platform (linux/arm64/v8) does not match the detected host platform (linux/amd64/v3) and no specific platform was requested
+8bca073660992f2c04391552d0004cc96ed226f124042aec791b21d2c77ee1e9
+PS C:\Users\joão.klein\Documents\ESTUDOS\DevSecOps\test-conteiner> docker ps
+CONTAINER ID   IMAGE                 COMMAND                  CREATED         STATUS         PORTS                  NAMES
+8bca07366099   hrchlhck/git-server   "/bin/sh -c '/usr/sb…"   9 seconds ago   Up 7 seconds   0.0.0.0:8080->80/tcp   strange_leavitt
+PS C:\Users\joão.klein\Documents\ESTUDOS\DevSecOps\test-conteiner> mkdir devsecops
+
+    Directory: C:\Users\joão.klein\Documents\ESTUDOS\DevSecOps\test-conteiner
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d----          30/08/2023    21:39                devsecops
+
+PS C:\Users\joão.klein\Documents\ESTUDOS\DevSecOps\test-conteiner> cd .\devsecops\
+PS C:\Users\joão.klein\Documents\ESTUDOS\DevSecOps\test-conteiner\devsecops> git init
+Initialized empty Git repository in C:/Users/joão.klein/Documents/ESTUDOS/DevSecOps/test-conteiner/devsecops/.git/
+PS C:\Users\joão.klein\Documents\ESTUDOS\DevSecOps\test-conteiner\devsecops> ipconfig 
+
+Configuração de IP do Windows
+
+
+Adaptador Ethernet Ethernet:
+
+   Estado da mídia. . . . . . . . . . . . . .  : mídia desconectada
+   Sufixo DNS específico de conexão. . . . . . :
+
+Adaptador de Rede sem Fio Conexão Local* 11:
+
+   Estado da mídia. . . . . . . . . . . . . .  : mídia desconectada
+   Sufixo DNS específico de conexão. . . . . . :
+
+Adaptador de Rede sem Fio Conexão Local* 12:
+
+   Estado da mídia. . . . . . . . . . . . . .  : mídia desconectada
+   Sufixo DNS específico de conexão. . . . . . :
+
+Adaptador de Rede sem Fio Wi-Fi:
+
+   Sufixo DNS específico de conexão. . . . . . : 
+   Endereço IPv4. . . . . . . .  . . . . . . . : 192.168.197.199
+   Máscara de Sub-rede . . . . . . . . . . . . : 255.255.255.0
+   Gateway Padrão. . . . . . . . . . . . . . . : 192.168.197.88
+
+Adaptador Ethernet Conexão de Rede Bluetooth:
+
+   Estado da mídia. . . . . . . . . . . . . .  : mídia desconectada
+   Sufixo DNS específico de conexão. . . . . . : 
+
+Adaptador Ethernet vEthernet (WSL):
+
+   Sufixo DNS específico de conexão. . . . . . :
+   Endereço IPv4. . . . . . . .  . . . . . . . : 192.168.112.1
+   Máscara de Sub-rede . . . . . . . . . . . . : 255.255.240.0
+   Gateway Padrão. . . . . . . . . . . . . . . :
+PS C:\Users\joão.klein\Documents\ESTUDOS\DevSecOps\test-conteiner\devsecops> ^C
+PS C:\Users\joão.klein\Documents\ESTUDOS\DevSecOps\test-conteiner\devsecops> git remote add origin main http://192.168.112.1:8080/devesecops.git
+usage: git remote add [<options>] <name> <url>
+
+    -f, --fetch           fetch the remote branches
+    --tags                import all tags and associated objects when fetching
+                          or do not fetch any tag at all (--no-tags)
+    -t, --track <branch>  branch(es) to track
+    -m, --master <branch>
+                          master branch
+    --mirror[=(push|fetch)]
+                          set up remote as a mirror to push to or fetch from
+
+PS C:\Users\joão.klein\Documents\ESTUDOS\DevSecOps\test-conteiner\devsecops> git remote add master main http://192.168.112.1:8080/devesecops.git
+usage: git remote add [<options>] <name> <url>
+
+    -f, --fetch           fetch the remote branches
+    --tags                import all tags and associated objects when fetching
+                          or do not fetch any tag at all (--no-tags)
+    -t, --track <branch>  branch(es) to track
+    -m, --master <branch>
+                          master branch
+    --mirror[=(push|fetch)]
+                          set up remote as a mirror to push to or fetch from
+
+PS C:\Users\joão.klein\Documents\ESTUDOS\DevSecOps\test-conteiner\devsecops> git remote add master http://192.168.112.1:8080/devesecops.git     
+PS C:\Users\joão.klein\Documents\ESTUDOS\DevSecOps\test-conteiner\devsecops> docker ps                           
+CONTAINER ID   IMAGE                 COMMAND                  CREATED          STATUS          PORTS                  NAMES
+8bca07366099   hrchlhck/git-server   "/bin/sh -c '/usr/sb…"   16 minutes ago   Up 16 minutes   0.0.0.0:8080->80/tcp   strange_leavitt
+PS C:\Users\joão.klein\Documents\ESTUDOS\DevSecOps\test-conteiner\devsecops> docker exec -it 8bca07366099  mkrepo devsecops.git 
+Git repository 'devsecops.git' created in /var/www/git/devsecops.git.git
+PS C:\Users\joão.klein\Documents\ESTUDOS\DevSecOps\test-conteiner\devsecops> docker exec -it 8bca07366099 rm -rf /var/www/git/devsecops.git.git
+PS C:\Users\joão.klein\Documents\ESTUDOS\DevSecOps\test-conteiner\devsecops> docker exec -it 8bca07366099  mkrepo devsecops     
+Git repository 'devsecops' created in /var/www/git/devsecops.git
+PS C:\Users\joão.klein\Documents\ESTUDOS\DevSecOps\test-conteiner\devsecops> ls
+
+    Directory: C:\Users\joão.klein\Documents\ESTUDOS\DevSecOps\test-conteiner\devsecops
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a---          30/08/2023    21:48             15 test.py
+
+PS C:\Users\joão.klein\Documents\ESTUDOS\DevSecOps\test-conteiner\devsecops> git status
+On branch master
+
+No commits yet
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        test.py
+
+nothing added to commit but untracked files present (use "git add" to track)
+PS C:\Users\joão.klein\Documents\ESTUDOS\DevSecOps\test-conteiner\devsecops> git add teste.py
+fatal: pathspec 'teste.py' did not match any files
+PS C:\Users\joão.klein\Documents\ESTUDOS\DevSecOps\test-conteiner\devsecops> git add test.py 
+PS C:\Users\joão.klein\Documents\ESTUDOS\DevSecOps\test-conteiner\devsecops> git commit "adicionado teste"
+error: pathspec 'adicionado teste' did not match any file(s) known to git
+PS C:\Users\joão.klein\Documents\ESTUDOS\DevSecOps\test-conteiner\devsecops> git commit "adicionado-teste"
+error: pathspec 'adicionado-teste' did not match any file(s) known to git
+PS C:\Users\joão.klein\Documents\ESTUDOS\DevSecOps\test-conteiner\devsecops> git push
+fatal: The current branch master has no upstream branch.
+To push the current branch and set the remote as upstream, use
+
+    git push --set-upstream master master
+
+To have this happen automatically for branches without a tracking
+upstream, see 'push.autoSetupRemote' in 'git help config'.
+
+PS C:\Users\joão.klein\Documents\ESTUDOS\DevSecOps\test-conteiner\devsecops> git commit test.py  "adicionado-teste"
+error: pathspec 'adicionado-teste' did not match any file(s) known to git
+PS C:\Users\joão.klein\Documents\ESTUDOS\DevSecOps\test-conteiner\devsecops> git commit test.py  'adicionado-teste'
+error: pathspec 'adicionado-teste' did not match any file(s) known to git
+PS C:\Users\joão.klein\Documents\ESTUDOS\DevSecOps\test-conteiner\devsecops> git commit 'adicionado-teste'         
+error: pathspec 'adicionado-teste' did not match any file(s) known to git
+PS C:\Users\joão.klein\Documents\ESTUDOS\DevSecOps\test-conteiner\devsecops> git commit -m 'adicionado-teste'
+[master (root-commit) 934642e] adicionado-teste
+ 1 file changed, 1 insertion(+)
+ create mode 100644 test.py
+PS C:\Users\joão.klein\Documents\ESTUDOS\DevSecOps\test-conteiner\devsecops> git push master
+fatal: The current branch master has no upstream branch.
+To push the current branch and set the remote as upstream, use
+
+    git push --set-upstream master master
+
+To have this happen automatically for branches without a tracking
+upstream, see 'push.autoSetupRemote' in 'git help config'.
+
+PS C:\Users\joão.klein\Documents\ESTUDOS\DevSecOps\test-conteiner\devsecops> git push origin 
+fatal: The current branch master has no upstream branch.
+To push the current branch and set the remote as upstream, use
+
+    git push --set-upstream origin master
+
+To have this happen automatically for branches without a tracking
+upstream, see 'push.autoSetupRemote' in 'git help config'.
+
+PS C:\Users\joão.klein\Documents\ESTUDOS\DevSecOps\test-conteiner\devsecops> git push origin master
+fatal: 'origin' does not appear to be a git repository
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.
+PS C:\Users\joão.klein\Documents\ESTUDOS\DevSecOps\test-conteiner\devsecops> git push master master
+fatal: repository 'http://192.168.112.1:8080/devesecops.git/' not found
+PS C:\Users\joão.klein\Documents\ESTUDOS\DevSecOps\test-conteiner\devsecops> git push master origin
+error: src refspec origin does not match any
+error: failed to push some refs to 'http://192.168.112.1:8080/devesecops.git'
+PS C:\Users\joão.klein\Documents\ESTUDOS\DevSecOps\test-conteiner\devsecops> git ls
+git: 'ls' is not a git command. See 'git --help'.
+
+The most similar command is
+        lfs
+PS C:\Users\joão.klein\Documents\ESTUDOS\DevSecOps\test-conteiner\devsecops> git branch
+* master
+PS C:\Users\joão.klein\Documents\ESTUDOS\DevSecOps\test-conteiner\devsecops> git push master       
+fatal: The current branch master has no upstream branch.
+To push the current branch and set the remote as upstream, use
+
+    git push --set-upstream master master
+
+To have this happen automatically for branches without a tracking
+upstream, see 'push.autoSetupRemote' in 'git help config'.
+
+PS C:\Users\joão.klein\Documents\ESTUDOS\DevSecOps\test-conteiner\devsecops> git push --set-upstream origin master
+fatal: 'origin' does not appear to be a git repository
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.
+PS C:\Users\joão.klein\Documents\ESTUDOS\DevSecOps\test-conteiner\devsecops> git remote -v
+master  http://192.168.112.1:8080/devesecops.git (fetch)
